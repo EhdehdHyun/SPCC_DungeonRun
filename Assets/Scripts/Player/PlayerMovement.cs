@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -17,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private float originalJumpHeight;
     Vector3 velocity;
     bool isGrounded;
+
+    public Action inventory;
 
     private Vector3 lastPlatformPos;
 

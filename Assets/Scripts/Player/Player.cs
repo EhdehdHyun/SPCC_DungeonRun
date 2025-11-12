@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Polyperfect.Universal;
@@ -8,8 +9,8 @@ public class Player : MonoBehaviour
     public PlayerMovement movement;
     public PlayerCondition condition;
     //장비 장착
-    //장비와 같은 아이템 데이터
-    //아이템을 주웠을 때와 같은 스크립트가 들어 올 곳
+    public ItemData itemData;
+    public Action addItem;
     public Transform dropPosition;
 
     private void Awake()
