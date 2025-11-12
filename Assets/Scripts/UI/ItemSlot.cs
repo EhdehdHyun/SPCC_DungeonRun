@@ -31,7 +31,7 @@ public class ItemSlot : MonoBehaviour
     {
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
-        quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+        quatityText.text = quantity.ToString();
 
         if (outline != null)
         {
