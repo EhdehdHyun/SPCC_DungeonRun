@@ -45,9 +45,18 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         hunger.Add(amout);
     }
 
-    public void TakePhysicalDamage(int damage)
+    public void TakePhysicalDamage(int damage) //시간이 되면 구현
     {
         health.Subtract(damage);
-        //인보크?
+    }
+
+    public bool UseStamina(float amount)
+    {
+        if (stamina.curValue - amount < 0)
+        {
+            return false;
+        }
+        stamina.Subtract(amount);
+        return true;
     }
 }

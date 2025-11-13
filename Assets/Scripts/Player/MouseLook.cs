@@ -19,13 +19,13 @@ namespace Polyperfect.Universal
         public KeyCode toggleViewKey = KeyCode.V;
         public float fpsDistance = 0.1f;
         public float tpsDistance = 5f;
-        private bool isFps = false;
+        public Camera FPVCam;
+        public UIHotbar hotbar;
 
+        private bool isFps = false;
 
         private float xRotation;
         private float yRotation;
-
-
 
         void Start()
         {
@@ -41,6 +41,11 @@ namespace Polyperfect.Universal
             {
                 isFps = !isFps;
                 distance = isFps ? fpsDistance : tpsDistance;
+
+                FPVCam.enabled = isFps;
+                hotbar.isFPS = isFps;
+
+                hotbar.SelectSlot(hotbar.selectedIndex);
             }
         }
 

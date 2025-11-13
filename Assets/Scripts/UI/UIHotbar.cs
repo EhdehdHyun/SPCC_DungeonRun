@@ -8,7 +8,12 @@ public class UIHotbar : MonoBehaviour
 {
     public ItemSlot[] slots;
     public Transform slotPanel;
-    private int selectedIndex = -1;
+    public int selectedIndex = -1;
+
+    [Header("FPV 카메라")]
+    public Transform equipHolder;
+    public GameObject currentEquipObject;
+    public bool isFPS = false;
 
     private Outline selectedOutline; //선택한 아이템을 확인하기 위한 아웃라인
 
@@ -71,18 +76,30 @@ public class UIHotbar : MonoBehaviour
     public void SelectSlot(int index)
     {
         if (index < 0 || index >= slots.Length) return;
+        selectedIndex = index;
 
         if (selectedOutline != null)
             selectedOutline.enabled = false;
 
-        selectedIndex = index;
         selectedOutline = slots[index].GetComponent<Outline>();
-
         if (selectedOutline != null)
-        {
             selectedOutline.enabled = true;
-            selectedOutline.effectColor = Color.yellow;
+
+        if (currentEquipObject != null)
+            Destroy(currentEquipObject);
+
+        ItemData data = slots[index].item;
+
+        if (data == null || data.equipPrefab == null)
+            return;
+
+        if (isFPS)
+        {
+            currentEquipObject = Instantiate(data.equipPrefab, equipHolder);
+            currentEquipObject.transform.localPosition = Vector3.zero;
+            currentEquipObject.transform.localRotation = Quaternion.identity;
         }
+
     }
 
     public void UseSelectedItem()
@@ -109,5 +126,10 @@ public class UIHotbar : MonoBehaviour
             }
             RemoveFromHotbar(selectedIndex);
         }
+    }
+    private void RemoveAndUpdate(int index)
+    {
+        slots[index].Clear();
+        SelectSlot(index);
     }
 }
