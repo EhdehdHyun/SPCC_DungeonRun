@@ -70,6 +70,13 @@ public class UIHotbar : MonoBehaviour
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             UseSelectedItem();
+            if (selectedIndex != -1 &&
+            slots[selectedIndex].item == null &&
+
+            currentEquipObject != null)
+            {
+                Destroy(currentEquipObject);
+            }
         }
     }
 
@@ -91,7 +98,10 @@ public class UIHotbar : MonoBehaviour
         ItemData data = slots[index].item;
 
         if (data == null || data.equipPrefab == null)
+        {
+            currentEquipObject = null;
             return;
+        }
 
         if (isFPS)
         {
@@ -130,6 +140,11 @@ public class UIHotbar : MonoBehaviour
     private void RemoveAndUpdate(int index)
     {
         slots[index].Clear();
+        if (index == selectedIndex && currentEquipObject != null)
+        {
+            Destroy(currentEquipObject);
+            currentEquipObject = null;
+        }
         SelectSlot(index);
     }
 }
